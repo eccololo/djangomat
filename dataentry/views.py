@@ -1,10 +1,14 @@
 from django.shortcuts import render
+from .utils import get_all_custom_models
 
 def import_data(request):
-    
+
     if request.method == "POST":
         pass
     else:
-        all_models = pass
+        custom_models = get_all_custom_models()
+        context = {
+            "custom_models": custom_models
+        }
 
-    return render(request, "dataentry/importdata.html", {})
+    return render(request, "dataentry/importdata.html", context)

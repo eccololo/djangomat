@@ -27,7 +27,11 @@
                         <label for="model_name">Select Database Table</label>
                         <select name="model_name" class="form-control">
                             <option value="" disabled selected>Select</option>
-                            <option value="">Demo Model</option>
+                            
+                            {% for model in custom_models %}
+                                <option value="{{ model }}">{{ model }}</option>
+                            {% endfor %}
+                            
                         </select>
                     </div>
                     <br />
