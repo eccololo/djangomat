@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.apps import apps
+from django.db import DataError
 import csv
 
 class Command(BaseCommand):
@@ -26,6 +27,7 @@ class Command(BaseCommand):
 
         if not model:
             raise CommandError(f"Model '{model_name}' not found in any app!")
+        
 
         with open(csv_filepath, "r") as file:
             reader = csv.DictReader(file)
@@ -37,7 +39,7 @@ class Command(BaseCommand):
             field_names = [field.name for field in model._meta.get_fields()]
 
             if unique_field not in field_names:
-                raise CommandError(f"Field '{unique_field}' does not exist in model '{model_name}'!")
+                raise DataError(f"Fields from CVS file does not match with fields in model '{model_name}'!")
 
             for data in reader:
                 unique_value = data[unique_field]
