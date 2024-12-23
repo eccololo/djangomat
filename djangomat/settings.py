@@ -128,3 +128,6 @@ MESSAGE_TAGS = {
     messages.ERROR: "danger",
     messages.SUCCESS: "success"
 }
+
+# Celery Configuration
+CELERY_BROKER_URL = 'redis://localhost:6380'
