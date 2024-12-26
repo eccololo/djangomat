@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.apps import apps
-from django.db import DataError
+from dataentry.utils import check_csv_errors
 import csv
 
 class Command(BaseCommand):
@@ -15,37 +15,28 @@ class Command(BaseCommand):
         # Custom command logic.
         csv_filepath = kwaregs["filepath"]
         model_name = kwaregs["model_name"].capitalize()
-        model = None
 
-        # Search for model across all installed apps.
-        for app_config in apps.get_app_configs():
-            try:
-                model = apps.get_model(app_config.label, model_name)
-                break # model found 
-            except LookupError:
-                continue # model not found, continue searching.
-
-        if not model:
-            raise CommandError(f"Model '{model_name}' not found in any app!")
-        
+        model = check_csv_errors(csv_filepath, model_name)
 
         with open(csv_filepath, "r") as file:
             reader = csv.DictReader(file)
-
-            if not reader.fieldnames:
-                raise CommandError("CSV file is empty or missing headers!")
-            
             unique_field = reader.fieldnames[0]
-            field_names = [field.name for field in model._meta.get_fields()]
-
-            if unique_field not in field_names:
-                raise DataError(f"Fields from CVS file does not match with fields in model '{model_name}'!")
 
             for data in reader:
                 unique_value = data[unique_field]
                 record_exists = model.objects.filter(**{unique_field: unique_value}).exists()
 
                 if not record_exists:
+                    # Filtering only string keys.
+                    data = {key: value for key, value in data.items() if isinstance(key, str)}
+
+                    # Logging excluded keys from data dict.
+                    non_str_keys = [key for key in data if not isinstance(key, str)]
+                    if non_str_keys:
+                        # TODO:
+                        # 1. Add logging to log system of this below action.
+                        print(f"Non-string keys were deleted: {non_str_keys}")
+
                     model.objects.create(**data)
                     self.stdout.write(self.style.SUCCESS(f"Added new record with {unique_field}={unique_value}"))
                 else: 

@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from .tasks import import_data_task
 from .utils import get_all_custom_models
+from dataentry.utils import check_csv_errors
 
 
 # @method_decorator(csrf_protect, name='dispatch')
@@ -28,7 +29,14 @@ def import_data(request):
 
         corrected_path = file_path.replace("/", "\\")
 
-        # Celery task here ...
+        # Check for CSV errors
+        try:
+            check_csv_errors(corrected_path, model_name)
+        except Exception as e:
+            messages.error(request, str(e))
+            return redirect("import_data")
+
+        # Celery task here
         import_data_task.delay(corrected_path, model_name)
         messages.success(request, "Your data is being imported. You will be notified once it is done!")
 

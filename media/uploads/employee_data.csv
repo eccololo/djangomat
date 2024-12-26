@@ -1,0 +1,50 @@
+﻿employee_id,employee_name,designation,salary,retirement,other_benefits,total_benefits,total_compensation
+37730,Charles Barry,IS Administrator 1,57534.65,11253.16,4532.63,27747.13,85281.78
+26574,Sarah Gonzalez,IS Administrator 3,57678.5,10284.88,4755.14,22216.82,79895.32
+8148,Gary Garcia,IS Trainer-Assistant,63532.93,12495.83,4702.71,30116.78,93649.71
+27436,Lawrence Hayes,IS Business Analyst-Principal,101274.51,19644.45,7458.76,40021.45,134237.37
+37730,Amy Hanson,IS Programmer Analyst,5084,1083.9,387.5,2428.31,7512.31
+36223,Benjamin Lane,IS Prg Analyst-Principal,34456,7346,2579.95,13753.58,48209.58
+51426,Nicole Grimes,IS Project Director,139889,26799.23,9791.54,49509.01,189398.01
+26574,Andrew Reed,IT Operations Support Admin IV,46572,9929.16,3822.28,19492.88,66064.88
+37983,Tiffany Armstrong,Training Officer,84681.53,16661.84,6838.44,36418.52,121100.05
+16858,Nicholas Cook,Accountant III,10611.01,1879.2,827.09,4141.65,14752.66
+32693,Mr. David Pena,Accountant III,43171.5,9061.62,3502.18,19262.15,62433.65
+43501,Michael Anderson,Accountant III,3155.01,574.53,218.78,793.31,3948.32
+16858,Rebecca Thomas,Accountant IV,10611,1879.2,804.35,4118.91,14729.91
+21653,Diana Alvarado,Senior Administrative Analyst,38491.83,8161.75,3094.21,17284.47,55776.3
+34205,Marissa Ritter,Senior Administrative Analyst,54645.5,10473.72,4389.44,23475.32,78120.82
+35965,Dana Woods,Senior Administrative Analyst,91826.22,18072.56,7811.62,38802.42,130628.64
+39039,Todd Holmes,Senior Administrative Analyst,77486.52,14861.12,6402.01,31310.65,108797.17
+45754,Nancy Lewis,Senior Administrative Analyst,40380.11,7872.99,3227.2,16363.18,56743.29
+46770,Gary Garcia,Senior Administrative Analyst,88016.5,17332,6760.28,37010.52,125027.02
+48264,Lawrence Hayes,Senior Administrative Analyst,91540.61,18011.68,7268.43,38198.35,129738.96
+33068,Amy Hanson,Pr Administrative Analyst,101787.06,20042.02,7988.47,40948.73,142735.79
+45754,Benjamin Lane,Pr Administrative Analyst,3503,637.9,299.49,1415.84,4918.84
+5021,Nicole Grimes,Pr Administrative Analyst,104022.86,20458.35,7878.74,41255.33,145278.19
+20957,Andrew Reed,Senior Personnel Analyst,104250.5,20214.04,8498.47,41630.75,145881.25
+17388,Tiffany Armstrong,Principal Personnel Analyst,133022.51,25483.48,9759.01,48160.73,181183.24
+19930,Nicholas Cook,Executive Secretary 3,67071.6,12973.88,5439.34,29157.49,98306.15
+1815,Mr. David Pena,Manager II,145343.93,27869.24,12335.56,53123.04,198466.97
+3034,Michael Anderson,Manager II,123825.66,23728.23,9480.88,46127.35,169953.01
+43208,Rebecca Thomas,Manager IV,155934.26,29873.14,18500.13,48373.27,204307.53
+14308,Diana Alvarado,"Div Director, Adult Probation",122302.25,21538.39,10318.94,44775.57,167077.82
+15189,Marissa Ritter,"Div Director, Adult Probation",122302.27,21538.37,10890.91,45347.52,167649.79
+17353,Dana Woods,"Div Director, Adult Probation",122302.26,21538.37,10493.35,44949.96,167252.22
+30068,Todd Holmes,"Div Director, Adult Probation",122302.24,21538.36,10811.11,45267.71,167569.95
+43952,Nancy Lewis,Chief Adult Probation Officer,209697.02,36944.94,12228.03,62091.21,271788.23
+5635,Christopher Tyler,Chief Deputy Adlt Probation Of,69257.89,0,5361.94,12015.43,81273.32
+41629,Brittany Taylor,Chief Dep Adlt Prob Of (SFERS),162953.5,31217.66,2608.57,46744.47,209697.97
+10922,Danielle Johnson,Deputy Probation Officer,93300.65,16454.93,1585.09,30577.35,123878
+10988,Russell Meyers DDS,Deputy Probation Officer,66139.71,11647.69,1099.15,25665.08,91804.79
+11294,Eric Howard,Deputy Probation Officer,96595.64,17020.61,1600.19,31539.05,128134.69
+12948,Laura Wright,Deputy Probation Officer,76487.01,13469.78,1300.28,27688.31,104175.32
+12968,Leonard Pierce,Deputy Probation Officer,92562.17,16322.99,1467.33,30228.2,122790.37
+1307,Luis Barber,Deputy Probation Officer,96152.53,16940.51,1633.57,31492.32,127644.85
+13679,Melanie Donovan,Deputy Probation Officer,5985.32,0,463.38,1263.29,7248.61
+14004,Mr. Jacob Harris,Deputy Probation Officer,96152.51,16940.51,1631.07,31489.82,127642.33
+14500,Bryan Torres,Deputy Probation Officer,80200.02,14056.28,1461.11,26282.59,113200.41
+14573,Leslie Allen,Deputy Probation Officer,96152.52,16940.51,1633.57,31492.32,127644.84
+15267,Cynthia Sanders,Deputy Probation Officer,76266.22,13432.05,1246.26,27596.55,103862.77
+1556,Bradley Ray,Deputy Probation Officer,96329.75,16972.55,1584.15,31474.94,127804.69
+15592,Dean Howard,Deputy Probation Officer,96061.33,16926.67,1632.02,31464.98,127526.31
