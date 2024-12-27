@@ -3,6 +3,8 @@ from django.core.management.base import CommandError
 from django.core.mail import EmailMessage
 from django.conf import settings
 import csv
+import datetime
+import os
 
 def get_all_custom_models():
     """This function returns all custom models in Django project."""
@@ -66,12 +68,27 @@ def check_csv_errors(file_path, model_name):
     return model
 
 
-def send_email_notification(subject, message, to_email):
+def send_email_notification(subject, message, to_email, attachment=None):
     """This function sends email notification to recepient."""
     try:
         from_email = settings.DEFAULT_FROM_EMAIL
         mail = EmailMessage(subject, message, from_email, to=[to_email])
+
+        if attachment is not None:
+            mail.attach_file(attachment)
+
         mail.send()
     except Exception as e:
         raise e
 
+
+
+def generate_csv_filepath(model_name):
+    """This function returns proper CSV filename."""
+
+    timestamp = datetime.datetime.now().strftime("%d.%m.%Y-%H.%M.%S")
+    filename = f"exported-{model_name.lower()}-{timestamp}.csv"
+    export_dir = "exports"
+    filepath = os.path.join(settings.MEDIA_ROOT, export_dir, filename)
+
+    return filepath

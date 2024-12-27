@@ -95,5 +95,9 @@ venv
 # ToDo
 todo.todo
 
+# User Files
+media/exports
+media/uploads
+
 # Others
 commands.txt

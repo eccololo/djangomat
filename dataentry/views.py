@@ -4,8 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
-from django.core.management import call_command
-from .tasks import import_data_task
+from .tasks import import_data_task, export_data_task
 from .utils import get_all_custom_models
 from dataentry.utils import check_csv_errors
 
@@ -54,12 +53,9 @@ def export_data(request):
     if request.method == "POST":
         model_name = request.POST.get("model_name")
 
-        filename = f"exported-{model_name.lower()}.csv"
         
-        try:
-            call_command("exportdata",filename, model_name)
-        except Exception as e:
-            raise e
+        # Celery task here ...
+        export_data_task.delay(model_name)
         
         messages.success(request, "Your data has been exported and send to your email!")
         return redirect("export_data")
