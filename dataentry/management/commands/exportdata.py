@@ -19,7 +19,7 @@ class Command(BaseCommand):
         # Custom command logic.
         
         model_name = kwaregs["model_name"].capitalize()
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        timestamp = datetime.datetime.now().strftime("%d.%m.%Y-%H.%M.%S")
 
         model = None
 
@@ -39,7 +39,7 @@ class Command(BaseCommand):
         filename = kwaregs["filename"]
         if ".csv" in filename:
             parts = filename.split(".")
-            filename = f"{parts[0]}-{timestamp}-{parts[1]}"
+            filename = f"{parts[0]}-{timestamp}.{parts[1]}"
         else:
             raise CommandError("File must be a CSV file.")
 
