@@ -1,6 +1,7 @@
 from django.apps import apps
 from django.core.management.base import CommandError
-from django.db import DataError
+from django.core.mail import EmailMessage
+from django.conf import settings
 import csv
 
 def get_all_custom_models():
@@ -63,3 +64,14 @@ def check_csv_errors(file_path, model_name):
         raise CommandError(f"Error processing CSV file: {e}")
     
     return model
+
+
+def send_email_notification(subject, message, to_email):
+    """This function sends email notification to recepient."""
+    try:
+        from_email = settings.DEFAULT_FROM_EMAIL
+        mail = EmailMessage(subject, message, from_email, to=[to_email])
+        mail.send()
+    except Exception as e:
+        raise e
+
