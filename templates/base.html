@@ -12,6 +12,15 @@
 </head>
 <body>
     {% include 'alerts.html' %}
+    <nav class="navbar bg-body-tertiary">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'home' %}">Djangomat</a>
+          <div>
+            <a href="" class="float-right text-decoration-none text-light">Login</a>&nbsp;
+            <a href="" class="float-right btn btn-success">Register</a>
+          </div>
+        </div>
+    </nav>
     {% block content %}
         <!-- custom template content goes here -->
     {% endblock %}
