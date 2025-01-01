@@ -16,8 +16,8 @@
         <div class="container">
           <a class="navbar-brand" href="{% url 'home' %}">Djangomat</a>
           <div>
-            <a href="" class="float-right text-decoration-none text-light">Login</a>&nbsp;
-            <a href="" class="float-right btn btn-success">Register</a>
+            <a href="{% url 'login' %}" class="float-right text-decoration-none text-light">Login</a>&nbsp;
+            <a href="{% url 'register' %}" class="float-right btn btn-success">Register</a>
           </div>
         </div>
     </nav>
