@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.http import HttpResponse
 from dataentry.tasks import celery_test_task
 from .forms import RegistrationForm
@@ -14,7 +15,16 @@ def celery_test(request):
 def register(request):
 
     if request.method == "POST":
-        pass
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Registration succesfull!")
+            return redirect("register")
+        else:
+            context = {
+                 'form': form
+            }
+            return render(request, 'register.html', context)
     else:
         form = RegistrationForm()
         context = {

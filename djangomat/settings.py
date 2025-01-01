@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dataentry',
     'uploads',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +142,7 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = f"Mateusz Hyla - Djangomat.com <{EMAIL_HOST_USER}>" # Email Default SUbject
 DEFAULT_TO_EMAIL = config("DEFAULT_TO_EMAIL")
+
+
+# Crispy forms settings
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
