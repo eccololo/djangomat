@@ -2,6 +2,7 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="text-center mb-5">Boring Stuff Automation Service</h1>
+    {% if user.is_authenticated %}
     <div class="row">
         <div class="col-md-4">
             <a href="{% url 'export_data' %}" class="text-decoration-none">
@@ -76,5 +77,21 @@
             </a>
         </div>
     </div>
+    {% else %}
+        <div class="home-info">
+            <p class="lead text-center text-muted">
+                Djangomat is a project that uses Django and Python to automate boring stuff that people do in their work with
+                MS Excel files, data processing and others. I wrote this project to help people deal with boring and time 
+                consuming tasks through Python automation.
+            </p>
+            <p class="lead text-center text-muted">
+                To use Djangomat features you must register your account and be logged in.
+            </p>
+            <div class="action-buttons mt-5">
+                <a href="{% url 'login' %}" class="btn btn-lg btn-primary">Login</a> &nbsp; &nbsp;
+                <a href="{% url 'register' %}" class="btn btn-lg btn-success">Register</a>
+            </div>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

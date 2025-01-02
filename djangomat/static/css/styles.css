@@ -7,3 +7,8 @@
 .service-item-card {
     background: #13141B;
 }
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+}

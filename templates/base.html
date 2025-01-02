@@ -15,10 +15,18 @@
     <nav class="navbar bg-body-tertiary">
         <div class="container">
           <a class="navbar-brand" href="{% url 'home' %}">Djangomat</a>
+
+          {% if user.is_authenticated %}
+          <div>
+            Logged in as <b>{{ user }}</b>
+            &nbsp;<a href="{% url 'logout' %}" class="float-right btn btn-outline-danger">Logout</a>
+          </div>
+          {% else %}
           <div>
             <a href="{% url 'login' %}" class="float-right text-decoration-none text-light">Login</a>&nbsp;
             <a href="{% url 'register' %}" class="float-right btn btn-success">Register</a>
           </div>
+          {% endif %}
         </div>
     </nav>
     {% block content %}
