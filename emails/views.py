@@ -1,11 +1,30 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.conf import settings
 from .forms import EmailForm
+from dataentry.utils import send_email_notification
+from .models import Subscriber
 
 
 def send_email(request):
 
     if request.method == "POST":
-        pass
+        email_form = EmailForm(request.POST, request.FILES)
+        if email_form.is_valid():
+            email_form = email_form.save()
+
+            subject = request.POST.get("subject")
+            message = request.POST.get("body")
+            email_list = request.POST.get("email_list")
+            email_list = email_form.email_list
+
+            subscribers = Subscriber.objects.filter(email_list=email_list)
+            to_email = [email.email_address for email in subscribers]
+
+            send_email_notification(subject, message, to_email)
+
+            messages.success(request, "Email sent succesfully!")
+            return redirect("send_email")
     else:
         email_form = EmailForm()
         context = {

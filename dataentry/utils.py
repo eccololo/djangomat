@@ -72,7 +72,7 @@ def send_email_notification(subject, message, to_email, attachment=None):
     """This function sends email notification to recepient."""
     try:
         from_email = settings.DEFAULT_FROM_EMAIL
-        mail = EmailMessage(subject, message, from_email, to=[to_email])
+        mail = EmailMessage(subject, message, from_email, to=to_email)
 
         if attachment is not None:
             mail.attach_file(attachment)

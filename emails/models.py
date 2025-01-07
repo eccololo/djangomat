@@ -21,7 +21,7 @@ class Email(models.Model):
 
     subject = models.CharField(max_length=100)
     body = models.TextField(max_length=700)
-    attachment = models.FileField(upload_to="email_attachments/")
+    attachment = models.FileField(upload_to="email_attachments/", blank=True)
     sent_at = models.DateTimeField(auto_now_add=True)
 
     email_list = models.ForeignKey(List, on_delete=models.CASCADE)
