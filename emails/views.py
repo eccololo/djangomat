@@ -1,5 +1,15 @@
 from django.shortcuts import render
+from .forms import EmailForm
 
 
 def send_email(request):
-    return render(request, "emails/sendemail.html")
+
+    if request.method == "POST":
+        pass
+    else:
+        email_form = EmailForm()
+        context = {
+            "email_form": email_form
+        }
+
+        return render(request, "emails/sendemail.html", context)
