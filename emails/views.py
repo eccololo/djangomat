@@ -8,7 +8,7 @@ from .tasks import send_email_task
 
 
 def send_email(request):
-
+    """This is a view for sending bulk emails."""
     if request.method == "POST":
         email_form = EmailForm(request.POST, request.FILES)
         if email_form.is_valid():
@@ -39,3 +39,12 @@ def send_email(request):
         }
 
         return render(request, "emails/sendemail.html", context)
+
+
+def track_click(request):
+    """This is a view for tracking clicks on the links send in email."""
+    pass
+
+
+def track_open(request):
+    """This is a view for tracking number of opened emails which were send in bulk mode."""
