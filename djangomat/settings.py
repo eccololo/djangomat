@@ -148,3 +148,13 @@ DEFAULT_TO_EMAIL = config("DEFAULT_TO_EMAIL")
 
 # Crispy forms settings
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+# CKEdityor Settings
+CKEDITOR_CONFIGS = {
+    'default': {
+        'skin': 'moono-lisa',  
+        'contentsCss': '/static/css/ckeditor_dark.css',  
+        'width': 'auto',       
+        'height': 300, 
+    },
+}

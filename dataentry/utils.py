@@ -77,6 +77,8 @@ def send_email_notification(subject, message, to_email, attachment=None):
         if attachment is not None:
             mail.attach_file(attachment)
 
+        # HTML email content will be rendered properly in mailbox.
+        mail.content_subtype = "html"
         mail.send()
     except Exception as e:
         raise e
