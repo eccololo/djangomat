@@ -1,3 +1,4 @@
+/* Specific Item Task Classes */
 .action-box {
     background: #13141B;
     padding: 40px 45px;
@@ -11,4 +12,9 @@
 .action-buttons {
     display: flex;
     justify-content: center;
+}
+
+/* General Item Task Classes */
+.card-title {
+    color: #fff;
 }

@@ -3,12 +3,13 @@
 <div class="container mt-5">
     <h1 class="text-center mb-5">Boring Stuff Automation Service</h1>
     {% if user.is_authenticated %}
-    <div class="row">
+    <input type="text" id="searchBar" class="form-control mb-4" placeholder="Search tasks...">
+    <div class="row"  id="taskContainer">
         <div class="col-md-4">
             <a href="{% url 'export_data' %}" class="text-decoration-none">
                 <div class="card service-item-card p-2 bg-primary">
                     <div class="card-header">
-                        <h4>Export Data</h4>
+                        <h4 class="card-title">Export Data</h4>
                     </div>
                     <div class="card-body text-light">
                         <p class="card-text">Export data to CSV file and send it to user email.</p>
@@ -20,7 +21,7 @@
             <a href="{% url 'import_data' %}" class="text-decoration-none">
                 <div class="card service-item-card p-2 bg-primary">
                     <div class="card-header">
-                        <h4>Import Data</h4>
+                        <h4 class="card-title">Import Data</h4>
                     </div>
                     <div class="card-body text-light">
                         <p class="card-text">Import data from CSV file to service database.</p>
@@ -32,7 +33,7 @@
             <a href="{% url 'send_email' %}" class="text-decoration-none">
                 <div class="card service-item-card p-2 bg-success">
                     <div class="card-header">
-                        <h4>Bulk Emails</h4>
+                        <h4 class="card-title">Bulk Emails</h4>
                     </div>
                     <div class="card-body text-light">
                         <p class="card-text">Send emails in bulk mode to multiple recipients.</p>
@@ -44,7 +45,7 @@
             <a href="#" class="text-decoration-none">
                 <div class="card service-item-card p-2 bg-success">
                     <div class="card-header">
-                        <h4>Email Tracking</h4>
+                        <h4 class="card-title">Email Tracking</h4>
                     </div>
                     <div class="card-body text-light">
                         <p class="card-text">Track statistics of send emails.</p>
@@ -56,7 +57,7 @@
             <a href="#" class="text-decoration-none">
                 <div class="card service-item-card p-2 bg-danger">
                     <div class="card-header">
-                        <h4>Compress Images</h4>
+                        <h4 class="card-title">Compress Images</h4>
                     </div>
                     <div class="card-body text-light">
                         <p class="card-text">Save storage space by compressing images.</p>
@@ -68,7 +69,7 @@
             <a href="#" class="text-decoration-none">
                 <div class="card service-item-card p-2 bg-secondary">
                     <div class="card-header">
-                        <h4>Web Scraping</h4>
+                        <h4 class="card-title">Web Scraping</h4>
                     </div>
                     <div class="card-body text-light">
                         <p class="card-text">Track changes on defined websites.</p>
