@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.conf import settings
 from .forms import EmailForm
 from dataentry.utils import send_email_notification
-from .models import Subscriber
+from .models import Subscriber, Email
 from .tasks import send_email_task
 
 
@@ -48,3 +48,14 @@ def track_click(request):
 
 def track_open(request):
     """This is a view for tracking number of opened emails which were send in bulk mode."""
+
+
+def track_dashboard(request):
+    """View for dashboard of tracing email feature."""
+
+    emails = Email.objects.all()
+    context = {
+        "emails": emails
+    }
+
+    return render(request, "emails/track_dashboard.html", context)

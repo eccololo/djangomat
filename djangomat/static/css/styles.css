@@ -1,4 +1,4 @@
-/* Specific Item Task Classes */
+/* Specific Item Task Classes in Tasks Pages */
 .action-box {
     background: #13141B;
     padding: 40px 45px;
@@ -14,7 +14,7 @@
     justify-content: center;
 }
 
-/* General Item Task Classes */
+/* General Item Task Classes on Home Page*/
 .card-title {
     color: #fff;
 }
@@ -38,4 +38,9 @@
     display: flex; 
     justify-content: flex-start;
     align-items: center;
+}
+
+/* Email Tracking CSS */
+.table td, .table th {
+    vertical-align: middle;
 }
