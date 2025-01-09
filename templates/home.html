@@ -3,7 +3,9 @@
 <div class="container mt-5">
     <h1 class="text-center mb-5">Boring Stuff Automation Service</h1>
     {% if user.is_authenticated %}
-    <input type="text" id="searchBar" class="form-control mb-4" placeholder="Search tasks...">
+    <div class="search-container">
+        <input type="text" id="searchBar" class="form-control mb-4" placeholder="Search tasks...">
+    </div>
     <div class="row"  id="taskContainer">
         <div class="col-md-4">
             <a href="{% url 'export_data' %}" class="text-decoration-none">
