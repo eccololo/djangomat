@@ -1,0 +1,43 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Email Statistics</h2>
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-6">
+              Total Email Sent: <b>0</b>
+              <br />
+              Sent At: <b>{{ email.sent_at }}</b>
+            </div>
+            <div class="col-md-6 text-end">
+              Opened: <b>0%</b>
+              <br />
+              Clicked: <b>0%</b>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h4>{{ email.subject }}</h4>
+          <div class="mail-body">{{ email.body | safe }}</div>
+          {% if email.attachment %} 
+                <div class="attachment mt-5">
+                    <a
+                    href="{{ email.attachment.url }}"
+                    target="_blank"
+                    class="btn btn-primary"
+                    >Download Attachment</a
+                    >
+                </div>
+          {% else %}
+          <div class="no-attachment mt-5">
+            <p>No attachment.</p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

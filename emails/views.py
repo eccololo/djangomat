@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from .forms import EmailForm
@@ -51,7 +51,7 @@ def track_open(request):
 
 
 def track_dashboard(request):
-    """View for dashboard of tracing email feature."""
+    """View for dashboard of tracking email feature."""
 
     emails = Email.objects.all()
     context = {
@@ -59,3 +59,12 @@ def track_dashboard(request):
     }
 
     return render(request, "emails/track_dashboard.html", context)
+
+
+def track_stats(request, pk):
+    """View for tracking email stats."""
+    email = get_object_or_404(Email, pk=pk)
+    context = {
+        "email": email
+    }
+    return render(request, "emails/track_stats.html", context)
