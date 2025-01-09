@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.conf import settings
 from .forms import EmailForm
-from dataentry.utils import send_email_notification
 from .models import Subscriber, Email
 from .tasks import send_email_task
+from django.db.models import Sum
 
 
 def send_email(request):
@@ -12,23 +11,25 @@ def send_email(request):
     if request.method == "POST":
         email_form = EmailForm(request.POST, request.FILES)
         if email_form.is_valid():
-            email_form = email_form.save()
+            email = email_form.save()
 
             subject = request.POST.get("subject")
             message = request.POST.get("body")
             email_list = request.POST.get("email_list")
-            email_list = email_form.email_list
+            email_list = email.email_list
 
             subscribers = Subscriber.objects.filter(email_list=email_list)
             to_email = [email.email_address for email in subscribers]
 
-            if email_form.attachment:
-                attachment = email_form.attachment.path
+            if email.attachment:
+                attachment = email.attachment.path
             else:
                 attachment = None
             
+            email_id = email.id
+
             # Celery task.
-            send_email_task.delay(subject, message, to_email, attachment)
+            send_email_task.delay(subject, message, to_email, attachment, email_id)
 
             messages.success(request, "Email sent succesfully!")
             return redirect("send_email")
@@ -53,7 +54,7 @@ def track_open(request):
 def track_dashboard(request):
     """View for dashboard of tracking email feature."""
 
-    emails = Email.objects.all()
+    emails = Email.objects.all().annotate(total_sent=Sum('sent__total_sent'))
     context = {
         "emails": emails
     }

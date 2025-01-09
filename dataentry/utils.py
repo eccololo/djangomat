@@ -2,6 +2,7 @@ from django.apps import apps
 from django.core.management.base import CommandError
 from django.core.mail import EmailMessage
 from django.conf import settings
+from emails.models import Email, Sent
 import csv
 import datetime
 import os
@@ -68,7 +69,7 @@ def check_csv_errors(file_path, model_name):
     return model
 
 
-def send_email_notification(subject, message, to_email, attachment=None):
+def send_email_notification(subject, message, to_email, attachment=None, email_id=None):
     """This function sends email notification to recepient."""
     try:
         from_email = settings.DEFAULT_FROM_EMAIL
@@ -80,6 +81,14 @@ def send_email_notification(subject, message, to_email, attachment=None):
         # HTML email content will be rendered properly in mailbox.
         mail.content_subtype = "html"
         mail.send()
+
+        # Store total sent email in Sent model.
+        email = Email.objects.get(pk=email_id)
+        sent = Sent()
+        sent.email = email
+        sent.total_sent = email.email_list.count_emails()
+        sent.save()
+        
     except Exception as e:
         raise e
 
