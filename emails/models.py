@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 
+
 class List(models.Model):
 
     email_list = models.CharField(max_length=35)
@@ -8,6 +9,10 @@ class List(models.Model):
     def __str__(self):
         return self.email_list
     
+    def count_emails(self):
+        count = Subscriber.objects.filter(email_list=self).count()
+        return count
+
 
 class Subscriber(models.Model):
 
@@ -17,6 +22,7 @@ class Subscriber(models.Model):
 
     def __str__(self):
         return self.email_address
+
 
 class Email(models.Model):
 
@@ -29,7 +35,15 @@ class Email(models.Model):
 
     def __str__(self):
         return self.subject
-    
+
+
+class Sent(models.Model):
+    email = models.ForeignKey(Email, on_delete=models.CASCADE, blank=True, null=True)
+    total_sent = models.IntegerField()
+
+    def __str__(self):
+        return str(self.email) + " - " + str(self.total_sent) + " emails sent"
+ 
 
 class EmailTracking(models.Model):
 
@@ -37,8 +51,10 @@ class EmailTracking(models.Model):
     opened_at = models.DateTimeField(null=True, blank=True)
     clicked_at = models.DateTimeField(null=True, blank=True)
 
-    email = models.ForeignKey(Email, on_delete=models.CASCADE, blank=True, null=True)
-    subscriber = models.ForeignKey(Subscriber, on_delete=models.CASCADE, blank=True, null=True)
+    email = models.ForeignKey(
+        Email, on_delete=models.CASCADE, blank=True, null=True)
+    subscriber = models.ForeignKey(
+        Subscriber, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.email.subject
