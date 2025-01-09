@@ -19,6 +19,18 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 card.style.display = 'none';
             }
+            
+            // Deleting top margin after search to align card good
+            card.classList.remove('mt-5');
         });
+
+        if (filter === '') {
+            Array.from(cards).forEach((card, index) => {
+                if (index >= 3) {
+                    // Adding top margin to tasks cards but not to first 3 when search field is empty.
+                    card.classList.add('mt-5');
+                }
+            });
+        }
     });
 });

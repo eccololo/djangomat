@@ -18,3 +18,15 @@
 .card-title {
     color: #fff;
 }
+
+#searchBar {
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+}
+
+#searchBar::placeholder {
+    color: #000;
+    font-style: italic; 
+    opacity: 1;
+}
