@@ -8,7 +8,14 @@
           "border": "1px solid red",
           "borderRadius": "2px",
           "backgroundColor": "rgba(0,0,0,.2)", 
-      }
+      },
+      {
+        "text": "FIXME:",
+        "color": "white",
+        "border": "1px solid green",
+        "borderRadius": "3px",
+        "backgroundColor": "rgba(3,214,0,.2)", 
+    }
   ],
   "todohighlight.defaultStyle": {
       "color": "red",
