@@ -1,6 +1,9 @@
 {% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
 <div class="container mt-5">
   <h2 class="text-center mb-4">Email Engagement Tracking</h2>
+  <div class="search-container">
+    <input type="text" id="searchBarEmail" class="form-control mb-4" placeholder="Search email...">
+  </div>
   <table class="table table-hover table-dark caption-top table-responsive">
     <caption>
       Todo Items
@@ -17,7 +20,7 @@
     </thead>
     <tbody>
       {% for email in emails %}
-      <tr>
+      <tr class="email-table-row">
         <th scope="row">{{ forloop.counter }}</th>
         <td><a href="{% url 'track_stats' email.id %}">{{ email.subject }}</a></td>
         <td>{{ email.email_list }}</td>

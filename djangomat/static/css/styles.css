@@ -19,16 +19,16 @@
     color: #fff;
 }
 
-#searchBar {
+#searchBarTasks, #searchBarEmail {
     background: #fff;
     color: #000;
-    font-weight: 600;
+    font-weight: 500;
     width: 60%;
     height: 60px;
     margin: 20px auto;
 }
 
-#searchBar::placeholder {
+#searchBarTasks::placeholder, #searchBarEmail::placeholder {
     color: #000;
     font-style: italic; 
     opacity: 1;

@@ -5,7 +5,7 @@ setTimeout(function() {
 
 // Code for search bar on home page to search for automation tasks.
 document.addEventListener('DOMContentLoaded', function () {
-    const searchBar = document.getElementById('searchBar');
+    const searchBar = document.getElementById('searchBarTasks');
     const taskContainer = document.getElementById('taskContainer');
     const cards = taskContainer.getElementsByClassName('col-md-4');
 
@@ -32,5 +32,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         }
+    });
+});
+
+
+// Code for search bar on email tracking task to search for an email.
+document.addEventListener('DOMContentLoaded', function () {
+    const searchBar = document.getElementById('searchBarEmail');
+    const emails = document.getElementsByClassName('email-table-row');
+
+    searchBar.addEventListener('input', function () {
+        const filter = searchBar.value.toLowerCase();
+
+        Array.from(emails).forEach(email => {
+            const email_txt = email.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            console.log(email_txt);
+            if (email_txt.includes(filter)) {
+                email.style.display = 'table-row';
+            } else {
+                email.style.display = 'none';
+            }
+
+        });
     });
 });
