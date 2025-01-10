@@ -42,9 +42,9 @@ def send_email(request):
         return render(request, "emails/sendemail.html", context)
 
 
-def track_click(request):
+def track_click(request, unique_id):
     """This is a view for tracking clicks on the links send in email."""
-    pass
+    print(request)
 
 
 def track_open(request):

@@ -106,8 +106,15 @@ def send_email_notification(subject, message, to_email, attachment=None, email_i
                 urls = [a['href'] for a in soup.find_all("a", href=True)]
 
                 # Inject url tracking into links that are in email body.
-            
-            mail = EmailMessage(subject, message, from_email, to=[recipient_email])
+                if urls:
+                    new_message = message
+                    for url in urls:
+                        tracking_url = f"{click_tracking_url}?url={url}"
+                        new_message = new_message.replace(f"{url}", {tracking_url})
+            else:
+                new_message = message
+                
+            mail = EmailMessage(subject, new_message, from_email, to=[recipient_email])
 
             if attachment is not None:
                 mail.attach_file(attachment)
