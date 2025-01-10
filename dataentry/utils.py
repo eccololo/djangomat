@@ -3,6 +3,7 @@ from django.core.management.base import CommandError
 from django.core.mail import EmailMessage
 from django.conf import settings
 from emails.models import Email, Sent, EmailTracking, Subscriber
+from bs4 import BeautifulSoup
 import csv
 import datetime
 import os
@@ -101,10 +102,12 @@ def send_email_notification(subject, message, to_email, attachment=None, email_i
                 click_tracking_url = f"{base_url}/emails/track/click/{unique_id}"
 
                 # Search for the links in the email body.
+                soup = BeautifulSoup(message, "html.parser")
+                urls = [a['href'] for a in soup.find_all("a", href=True)]
 
                 # Inject url tracking into links that are in email body.
             
-            mail = EmailMessage(subject, message, from_email, to=recipient_email)
+            mail = EmailMessage(subject, message, from_email, to=[recipient_email])
 
             if attachment is not None:
                 mail.attach_file(attachment)
