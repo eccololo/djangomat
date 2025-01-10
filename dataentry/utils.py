@@ -2,10 +2,12 @@ from django.apps import apps
 from django.core.management.base import CommandError
 from django.core.mail import EmailMessage
 from django.conf import settings
-from emails.models import Email, Sent
+from emails.models import Email, Sent, EmailTracking, Subscriber
 import csv
 import datetime
 import os
+import hashlib
+import time
 
 def get_all_custom_models():
     """This function returns all custom models in Django project."""
@@ -73,21 +75,44 @@ def send_email_notification(subject, message, to_email, attachment=None, email_i
     """This function sends email notification to recepient."""
     try:
         from_email = settings.DEFAULT_FROM_EMAIL
-        mail = EmailMessage(subject, message, from_email, to=to_email)
 
-        if attachment is not None:
-            mail.attach_file(attachment)
+        for recipient_email in to_email:
+            # If I am sending emails in bulk.
+            if email_id:
 
-        # HTML email content will be rendered properly in mailbox.
-        mail.content_subtype = "html"
-        mail.send()
+                # Store total sent email in Sent model.
+                email = Email.objects.get(pk=email_id)
+                subscriber = Subscriber.objects.get(email_list=email.email_list, email_address=recipient_email)
+                timestamp = time.time()
+                data_to_hash = f"{recipient_email}{timestamp}"
+                unique_id = hashlib.sha256(data_to_hash.encode()).hexdigest()
 
-        # Store total sent email in Sent model.
-        email = Email.objects.get(pk=email_id)
-        sent = Sent()
-        sent.email = email
-        sent.total_sent = email.email_list.count_emails()
-        sent.save()
+                # Create email tracking record.
+                email_tracking = EmailTracking.objects.create(
+                    unique_id = unique_id,
+                    email = email,
+                    subscriber = subscriber
+                )
+                 # Generate the tracking pixel.
+
+                # Search for the links in the email body.
+
+                # Inject url tracking into links that are in email body.
+            
+            mail = EmailMessage(subject, message, from_email, to=recipient_email)
+
+            if attachment is not None:
+                mail.attach_file(attachment)
+
+            # HTML email content will be rendered properly in mailbox.
+            mail.content_subtype = "html"
+            mail.send()
+
+        if email:
+            sent = Sent()
+            sent.email = email
+            sent.total_sent = email.email_list.count_emails()
+            sent.save()
         
     except Exception as e:
         raise e

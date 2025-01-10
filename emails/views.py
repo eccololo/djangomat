@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import EmailForm
-from .models import Subscriber, Email
+from .models import Subscriber, Email, Sent
 from .tasks import send_email_task
 from django.db.models import Sum
 
@@ -65,7 +65,10 @@ def track_dashboard(request):
 def track_stats(request, pk):
     """View for tracking email stats."""
     email = get_object_or_404(Email, pk=pk)
+    sent = Sent.objects.get(email=email)
+
     context = {
-        "email": email
+        "email": email,
+        "total_sent": sent.total_sent
     }
     return render(request, "emails/track_stats.html", context)
