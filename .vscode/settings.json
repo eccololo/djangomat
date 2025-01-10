@@ -1,0 +1,54 @@
+{
+  "todohighlight.isEnable": true,
+  "todohighlight.isCaseSensitive": true,
+  "todohighlight.keywords": [
+      {
+          "text": "TODO:",
+          "color": "red",
+          "border": "1px solid red",
+          "borderRadius": "2px",
+          "backgroundColor": "rgba(0,0,0,.2)", 
+      }
+  ],
+  "todohighlight.defaultStyle": {
+      "color": "red",
+      "backgroundColor": "#ffab00",
+      "overviewRulerColor": "#ffab00",
+      "cursor": "pointer",
+      "border": "1px solid #eee",
+      "borderRadius": "2px",
+      "isWholeLine": true,
+  },
+  "todohighlight.include": [
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.html",
+      "**/*.php",
+      "**/*.css",
+      "**/*.scss",
+      "**/*.py"
+  ],
+  "todohighlight.exclude": [
+      "**/node_modules/**",
+      "**/bower_components/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.vscode/**",
+      "**/.github/**",
+      "**/_output/**",
+      "**/*.min.*",
+      "**/*.map",
+      "**/.next/**",
+      "**/vendor/**",
+      "**/vendor/**",
+      "**/*.ts",
+      "**/*.d.ts",
+      "**/venv/*",
+      "**/static/*"
+  ],
+  "todohighlight.maxFilesForSearch": 5120,
+"todohighlight.toggleURI": false,
+"editor.fontSize": 17
+}

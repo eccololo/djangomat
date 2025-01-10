@@ -93,7 +93,12 @@ def send_email_notification(subject, message, to_email, attachment=None, email_i
                     email = email,
                     subscriber = subscriber
                 )
-                 # Generate the tracking pixel.
+
+                # Generate the tracking pixel.
+                # TODO: Here you must change in settings.py BASE_URL on URL of your website. If you are using ngrok change BASE URL on.
+                # ngrok URL in settings.py.
+                base_url = settings.BASE_URL
+                click_tracking_url = f"{base_url}/emails/track/click/{unique_id}"
 
                 # Search for the links in the email body.
 

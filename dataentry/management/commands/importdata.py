@@ -33,8 +33,7 @@ class Command(BaseCommand):
                     # Logging excluded keys from data dict.
                     non_str_keys = [key for key in data if not isinstance(key, str)]
                     if non_str_keys:
-                        # TODO:
-                        # 1. Add logging to log system of this below action.
+                        # TODO: Add logging to log system of this below action.
                         print(f"Non-string keys were deleted: {non_str_keys}")
 
                     model.objects.create(**data)

@@ -168,3 +168,8 @@ CKEDITOR_CONFIGS = {
         'height': 300, 
     },
 }
+
+# TODO: Here you must change in settings.py BASE_URL on URL of your website. If you are using ngrok change BASE URL on ngrok URL in settings.py.
+# NGROK SETTINGS
+BASE_URL = "<ngrok-url>"
+# CSRF_TRUSTED_ORIGINS = ["<ngrok-url>"]
