@@ -1,9 +1,11 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import EmailForm
-from .models import Subscriber, Email, Sent
+from .models import Subscriber, Email, Sent, EmailTracking
 from .tasks import send_email_task
 from django.db.models import Sum
+from django.utils import timezone
 
 
 def send_email(request):
@@ -47,9 +49,21 @@ def track_click(request, unique_id):
     print(request)
 
 
-def track_open(request):
+def track_open(request, email_id):
     """This is a view for tracking number of opened emails which were send in bulk mode."""
-
+    try:
+        email_tracking = EmailTracking.objects.get(email_id=email_id)
+        # Check is opened_at is already set or not.
+        if not email_tracking.opened_at:
+            # Save current timestamp
+            email_tracking.opened_at = timezone.now()
+            email_tracking.save()
+            return HttpResponse("Email opened succesfully!")
+        else:
+            print("Email already opened!")
+            return HttpResponse("Email already opened!")
+    except:
+        return HttpResponse("Email tracking ID not found!")
 
 def track_dashboard(request):
     """View for dashboard of tracking email feature."""

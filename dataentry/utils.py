@@ -89,6 +89,7 @@ def send_email_notification(subject, message, to_email, attachment=None, email_i
             if isinstance(to_email, list):
 
                 for recipient_email in to_email:
+                    new_message = message
 
                     # If I am sending emails in bulk.
                     try:
@@ -118,8 +119,8 @@ def send_email_notification(subject, message, to_email, attachment=None, email_i
                         # TODO: Here you must change in settings.py BASE_URL on URL of your website. If you are using ngrok change BASE URL on.
                         # ngrok URL in settings.py.
                         base_url = settings.BASE_URL
-                        click_tracking_url = f"{
-                            base_url}/emails/track/click/{unique_id}"
+                        click_tracking_url = f"{base_url}/emails/track/click/{unique_id}"
+                        open_tracking_url = f"{base_url}/emails/track/open/{unique_id}"
 
                         # Search for the links in the email body.
                         soup = BeautifulSoup(message, "html.parser")
@@ -127,13 +128,13 @@ def send_email_notification(subject, message, to_email, attachment=None, email_i
 
                         # Inject url tracking into links that are in email body.
                         if urls:
-                            new_message = message
                             for url in urls:
                                 tracking_url = f"{click_tracking_url}?url={url}"
-                                new_message = new_message.replace(
-                                    f"{url}", f"{tracking_url}")
-                    else:
-                        new_message = message
+                                new_message = new_message.replace(f"{url}", f"{tracking_url}")
+                            
+                        # Create email content with tracking pixel image.
+                        open_tracking_img = f"<img src='{open_tracking_url}' height='1' width='1'>"
+                        new_message = new_message + open_tracking_img
 
                     mail = EmailMessage(subject, new_message,
                                         from_email, to=[recipient_email])
