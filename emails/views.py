@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import EmailForm
@@ -44,9 +44,20 @@ def send_email(request):
         return render(request, "emails/sendemail.html", context)
 
 
-def track_click(request, unique_id):
+def track_click(request, email_id):
     """This is a view for tracking clicks on the links send in email."""
-    print(request)
+    try:
+        email_tracking = EmailTracking.objects.get(email_id=email_id)
+        url = request.GET.get("url")
+        # Check is clicked_at is already set or not.
+        if not email_tracking.clicked_at:
+            email_tracking.clicked_at = timezone.now()
+            email_tracking.save()
+            return HttpResponseRedirect(url)
+        else:
+            return HttpResponseRedirect(url) 
+    except:
+        return HttpResponse("Email tracking ID not found!") 
 
 
 def track_open(request, email_id):
