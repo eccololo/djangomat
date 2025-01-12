@@ -57,5 +57,6 @@
   ],
   "todohighlight.maxFilesForSearch": 5120,
 "todohighlight.toggleURI": false,
-"editor.fontSize": 17
+"editor.fontSize": 17,
+"emmet.includeLanguages": {"django-html": "html"}
 }
