@@ -79,7 +79,7 @@ def track_open(request, email_id):
 def track_dashboard(request):
     """View for dashboard of tracking email feature."""
 
-    emails = Email.objects.all().annotate(total_sent=Sum('sent__total_sent'))
+    emails = Email.objects.all().annotate(total_sent=Sum('sent__total_sent')).order_by("-sent_at")
     context = {
         "emails": emails
     }
