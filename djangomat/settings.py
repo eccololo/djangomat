@@ -28,11 +28,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # User apps
     'dataentry',
     'uploads',
+    'emails',
+    'image_compression',
+
+    # Installed apps
     'crispy_forms',
     'crispy_bootstrap5',
-    'emails',
     'ckeditor',
     "anymail",
 ]
