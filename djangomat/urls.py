@@ -11,6 +11,7 @@ urlpatterns = [
     path("dataentry/", include("dataentry.urls")),
     path("emails/", include("emails.urls")),
     path("image-compression/", include("image_compression.urls")),
+    path("webscraping/", include("stock_analysis.urls")),
     path("celery-test/", views.celery_test),
     path("register", views.register, name="register"),
     path("login", views.login, name="login"),
