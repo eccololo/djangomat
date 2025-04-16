@@ -9,12 +9,15 @@
             <form action="{% url 'stocks' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
-                    <!-- {{ form | crispy }} -->
+                    {{ form | crispy }}
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Get Info" class="btn btn-lg btn-primary">
                 </div>
             </form>
+            # FIXME: Nie wyswietlaja sie dane z modelu Stock na templacie
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+            {{ form.media }}
         </div>
     </div>
 </div>

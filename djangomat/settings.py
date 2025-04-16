@@ -21,7 +21,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin', # For Jazzmin Admin Panel Template
+    'jazzmin', # For Jazzmin Admin Panel Template?
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
