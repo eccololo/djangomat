@@ -28,3 +28,6 @@ class StockAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(name__istartswith=self.q)
 
         return qs
+    
+    def get_result_label(self, result):
+        return result.name
