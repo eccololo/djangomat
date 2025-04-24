@@ -82,3 +82,7 @@ class EmailTracking(models.Model):
 
     def __str__(self):
         return self.email.subject
+    
+    class Meta:
+
+        verbose_name_plural = "Email Tracking"
