@@ -29,7 +29,7 @@ class StockData(models.Model):
     divident_yield = models.CharField(max_length=25, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.stock} - {self.current_price}$"
+        return f"{self.stock} - {self.current_price}"
     
     class Meta:
 

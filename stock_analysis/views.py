@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from dal import autocomplete
 
-from .models import Stock
+from .models import Stock, StockData
 from .forms import StockForm
 from .utils import scrape_stock_data
 
@@ -19,10 +20,32 @@ def stocks(request):
 
             stock_response = scrape_stock_data(symbol, exchange)
 
-            print("*" * 40)
-            print(stock_response)
+            if stock_response:
+                try:
+                    stock_data = StockData.objects.get(stock=stock)
+                except StockData.DoesNotExist:
+                    stock_data = StockData(stock=stock)
+
+                # Update the instance of stock data with the response data
+                stock_data.current_price = stock_response["current_price"]
+                stock_data.previous_close = stock_response["previous_close"]
+                stock_data.price_changed = stock_response["price_changed"]
+                stock_data.percentage_changed = stock_response["percentage_changed"]
+                stock_data.week_52_high = stock_response["week_52_high"]
+                stock_data.week_52_low = stock_response["week_52_low"]
+                stock_data.market_cap = stock_response["market_cap"]
+                stock_data.pe_ratio = stock_response["pe_ratio"]
+                stock_data.divident_yield = stock_response["divident_yield"]
+
+                stock_data.save()
+
+                return redirect("stocks")
+            else:
+                messages.error(request, f"Could not fetch data from symbol: {symbol}.")
+                return redirect("stocks")
         else:
-            print("The form is not valid.")
+            messages.error(request, f"Invalid data in form for symbol: {symbol}.")
+            return redirect("stocks")
     else:
         form = StockForm()
 
