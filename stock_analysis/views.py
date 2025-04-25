@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from dal import autocomplete
 
@@ -39,7 +39,7 @@ def stocks(request):
 
                 stock_data.save()
 
-                return redirect("stocks")
+                return redirect("stock_detail", stock_data.id)
             else:
                 messages.error(request, f"Could not fetch data from symbol: {symbol}.")
                 return redirect("stocks")
@@ -56,6 +56,16 @@ def stocks(request):
         return render(request, "stock_analysis/stocks.html", context)
 
 
+def stock_detail(request, pk):
+
+    stock_data = get_object_or_404(StockData, pk=pk)
+
+    context = {
+        "stock_data": stock_data
+    }
+
+    return render(request, "stock_analysis/stock-detail.html", context)
+
 
 class StockAutocomplete(autocomplete.Select2QuerySetView):
 
@@ -71,3 +81,4 @@ class StockAutocomplete(autocomplete.Select2QuerySetView):
     
     def get_result_label(self, result):
         return result.name
+

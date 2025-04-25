@@ -27,6 +27,7 @@ class StockData(models.Model):
     market_cap = models.CharField(max_length=25, null=True, blank=True)
     pe_ratio = models.CharField(max_length=25, null=True, blank=True)
     divident_yield = models.CharField(max_length=25, null=True, blank=True)
+    last_updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.stock} - {self.current_price}"
