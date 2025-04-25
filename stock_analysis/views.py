@@ -3,17 +3,34 @@ from dal import autocomplete
 
 from .models import Stock
 from .forms import StockForm
+from .utils import scrape_stock_data
 
 
 def stocks(request):
+    
+    if request.method == "POST":
+        
+        form = StockForm(request.POST)
+        if form.is_valid(): 
+            stock_id = request.POST.get("stock")
+            stock = Stock.objects.get(pk=stock_id)
+            symbol = stock.symbol
+            exchange = stock.exchange
 
-    form = StockForm()
+            stock_response = scrape_stock_data(symbol, exchange)
 
-    context = {
-        "form": form
-    }
+            print("*" * 40)
+            print(stock_response)
+        else:
+            print("The form is not valid.")
+    else:
+        form = StockForm()
 
-    return render(request, "stock_analysis/stocks.html", context)
+        context = {
+            "form": form
+        }
+
+        return render(request, "stock_analysis/stocks.html", context)
 
 
 
