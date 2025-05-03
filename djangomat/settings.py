@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'emails',
     'image_compression',
     'stock_analysis',
+    'cheap_ebook',
 
     # Installed apps
     'crispy_forms',
