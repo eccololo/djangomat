@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-6 action-box">
+            <h2 class="mb-2">Cheak cheap book</h2>
+            <p>Click button bellow to check cheap book details.</p>
+            <hr />
+            <br />
+            <a href="{% url 'cheap-ebook' %}" class="btn btn-primary" onclick="showSpinner(this)">
+                <span class="spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
+                <span class="spinner-label d-none" role="status">Loading...</span>
+                <span class="spinner-label-before">Check details</span>
+            </a>
+        </div>
+    </div>
+</div>
+<script>
+// For spinner in cheap book button.
+function showSpinner(button) {
+    const spinner = button.querySelector('.spinner-border');
+    const spinnerLabel = button.querySelector('.spinner-label');
+    const spinnerLabelBefore = button.querySelector('.spinner-label-before');
+    spinner.classList.remove('d-none');
+    spinnerLabel.classList.remove('d-none');
+    spinnerLabelBefore.classList.add('d-none');
+}
+</script>
+{% endblock %}

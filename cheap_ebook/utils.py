@@ -1,10 +1,11 @@
 from bs4 import BeautifulSoup
 import requests
+import time
 
 
 def scrape_cheap_ebook():
 
-    url = "https://ebookpoint.pl/"
+    url = "https://ebookpoint.pl"
 
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -13,23 +14,74 @@ def scrape_cheap_ebook():
 
     try:
         response = requests.get(url, headers=headers)
+        time.sleep(3)
 
         if response.status_code == 200:
 
             soup = BeautifulSoup(response.content, "html.parser")
 
-            # pe_ratio = soup.find(
-            #     "fin-streamer", attrs={'data-field': 'trailingPE'})
-            # if pe_ratio:
-            #     pe_ratio = pe_ratio.text.strip()
-            # else:
-            #     pe_ratio = None
+            div_to_details = soup.find("div", attrs={'class': 'promotion-book'})
+            link_to_details = div_to_details.p.a["href"]
+            link_to_details = url + link_to_details
+            if link_to_details:
+                response = requests.get(link_to_details, headers=headers)
 
-            # cheap_ebook_response = {
-            #    
-            # }
+                if response.status_code == 200:
 
-            print(soup.contents)
+                    soup = BeautifulSoup(response.content, "html.parser")
+
+                    # Tytuł książki
+                    title_tag = soup.find("h1")
+                    title = title_tag.span.text.strip() if title_tag and title_tag.span else None
+
+                    # Cena
+                    price_tag = soup.find("ins", attrs={'id': 'cena_e'})
+                    price = price_tag.text.strip() if price_tag else None
+
+                    # Autor
+                    spans = title_tag.find_all("span") if title_tag else []
+                    author_name = spans[1].text.strip() if len(spans) > 1 else None
+
+                    # Liczba stron
+                    pages_tag = soup.find("dd", attrs={'class': 'select_druk select_ebook select_bundle'})
+                    pages = pages_tag.text.strip() if pages_tag else None
+
+
+                    # Czy dostępny w formacie EPUB
+                    is_epub = soup.find("div", attrs={'class': 'epubFormat'}) is not None
+
+                     # URL okładki
+                    image_tag = soup.find("p", attrs={'id': 'mainBookCover'})
+                    image_url = image_tag.img["src"] if image_tag and image_tag.img else None
+
+                    # Opis autora
+                    # FIXME: 1. Tutaj trzeba popracowac aby pobieralo wlasciwy autor_desc
+                    author_desc = soup.select_one("div.mpof_ki p > b")
+                    if author_desc:
+                        author_desc = author_desc.find_parent("p").get_text(strip=True)
+                    else:
+                        author_desc = None
+
+                    # Opis książki
+                    try:
+                        description = soup.select_one("div.text > div > div > div > div > div").text.strip()
+                    except AttributeError:
+                        description = None
+
+                    cheap_ebook_data = {
+                       "title": title,
+                       "price": price,
+                       "author_name": author_name,
+                       "pages": pages,
+                       "is_epub": is_epub,
+                       "image_url": image_url,
+                       "author_desc": author_desc,
+                       "description": description
+                    }
+
+                    return cheap_ebook_data
+            else:
+                link_to_details = None
 
             return None
 
