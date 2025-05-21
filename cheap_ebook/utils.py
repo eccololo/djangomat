@@ -54,19 +54,10 @@ def scrape_cheap_ebook():
                     image_tag = soup.find("p", attrs={'id': 'mainBookCover'})
                     image_url = image_tag.img["src"] if image_tag and image_tag.img else None
 
-                    # Opis autora
-                    # FIXME: 1. Tutaj trzeba popracowac aby pobieralo wlasciwy autor_desc
-                    author_desc = soup.select_one("div.mpof_ki p > b")
-                    if author_desc:
-                        author_desc = author_desc.find_parent("p").get_text(strip=True)
-                    else:
-                        author_desc = None
-
                     # Opis książki
-                    try:
-                        description = soup.select_one("div.text > div > div > div > div > div").text.strip()
-                    except AttributeError:
-                        description = None
+                    div = soup.find('div', id='center-body-opis')
+                    paragraphs = div.find_all('p')
+                    description = [p.get_text(strip=True) for p in paragraphs]
 
                     cheap_ebook_data = {
                        "title": title,
@@ -75,7 +66,6 @@ def scrape_cheap_ebook():
                        "pages": pages,
                        "is_epub": is_epub,
                        "image_url": image_url,
-                       "author_desc": author_desc,
                        "description": description
                     }
 

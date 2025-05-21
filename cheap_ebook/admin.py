@@ -11,8 +11,7 @@ class CheapBookForm(forms.ModelForm):
         model = CheapBook
         fields = "__all__"
         widgets = {
-            "author_desc": forms.Textarea(attrs={"rows": 3}),
-            "description": forms.Textarea(attrs={"rows": 4}),
+            "description": forms.Textarea(attrs={"rows": 4})
         }
 
 
@@ -31,10 +30,15 @@ class CheapBookAdmin(admin.ModelAdmin):
     
     thumbnail.short_description = "Cover"
 
-    list_display = ["title", "thumbnail", "author_name", "pages", "is_epub", "created_at"]
+    list_display = ["title", "thumbnail", "author_name", "price", "pages", "is_epub", "created_at"]
+
     search_fields = ["title", "author_name"]
+
     readonly_fields = [
     "title", "price", "author_name", "pages", "is_epub",
-    "image_url", "author_desc", "description", "created_at"]
+    "image_url", "formatted_description", "created_at"]
+
+    fields = ('title', 'price', 'author_name', 'pages', 'is_epub',
+              'image_url', 'formatted_description')
 
 admin.site.register(CheapBook, CheapBookAdmin)
